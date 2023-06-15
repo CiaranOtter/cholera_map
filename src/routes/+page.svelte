@@ -70,7 +70,7 @@
                 closePopupOnClick: false, 
                 boxZoom: false,
                 trackResize: true
-            }).setView([-28.2921561,24.9005021],5.7);
+            }).setView([-27.2921561,25.9005021],5.4);
 
             let provinceLines = L.geoJSON(provinces, {
                 style: function(feature) {
@@ -104,16 +104,25 @@
                     let offset = [0,0];
                     switch(name) {
                         case "Western Cape":
-                            offset = [40, -45]
+                            offset = [20, 0]
                             break;
                         case "North West":
-                            offset = [-20, -15] 
+                            offset = [-50, -70] 
                             break;
                         case "Mpumalanga":
-                            offset = [45, 20]
+                            offset = [100, 0]
                             break;
                         case "KwaZulu-Natal":
-                            offset = [25, 20] 
+                            offset = [50, 20] 
+                            break;
+                        case "Limpopo":
+                            offset = [80, -50];
+                            break
+                        case "Eastern Cape":
+                            offset = [50, 40];
+                            break;
+                        case "Free State":
+                            offset = [0, 20];
                             break;
                     } 
                     let data = map_data.filter(a => {
@@ -169,17 +178,20 @@
     
 
 </script>
-    <div id="map" class="chart" bind:this={mapElement} >
-        <div class="title">Cholera in South Africa</div>
-    <div class="subtitle">Total cases: <span class="highlight">{Total_el.Cases}</span>  Deaths: <span class="highlight">{Total_el.Deaths}</span></div>
-    
+
+<div id="map" class="chart" bind:this={mapElement}>
+    <div class="title">Cholera in South Africa</div>
+    <div class="subtitle">
+        Total cases: <span class="highlight">{Total_el.Cases}</span> Deaths:
+        <span class="highlight">{Total_el.Deaths}</span>
     </div>
+</div>
 
 <style>
-    @import 'leaflet/dist/leaflet.css';
+    @import "leaflet/dist/leaflet.css";
     #map {
-       height: 100%;
-       width: 100%
+        height: 100%;
+        width: 100%;
     }
 
     :global(.leaflet-container) {
@@ -187,11 +199,10 @@
     }
 
     .highlight {
-        color: #064C8D;
+        color: #064c8d;
         font-weight: 700;
         font-size: 1.8rem;
         padding: 0px 5px;
-
     }
 
     .title-container {
@@ -199,27 +210,26 @@
         padding: 10px;
     }
 
-    :global(.tt-title){
+    :global(.tt-title) {
         font-weight: 700;
         font-size: 1.25rem;
         margin: auto;
         width: fit-content;
-        font-family: 'Roboto', sans-serif;
+        font-family: "Roboto", sans-serif;
     }
 
     :global(.tt-text) {
         /* color: grey; */
-        font-family: 'Roboto', sans-serif;
+        font-family: "Roboto", sans-serif;
         font-weight: 400;
         font-size: 1rem;
         margin: auto;
-        width:  fit-content;
+        width: fit-content;
         line-height: 20px;
-        
     }
 
     .title {
-        font-family: 'Roboto', sans-serif;
+        font-family: "Roboto", sans-serif;
         text-align: center;
         /* color: #064C8D; */
         font-weight: 700;
@@ -227,7 +237,7 @@
     }
 
     .subtitle {
-        font-family: 'Roboto', sans-serif;
+        font-family: "Roboto", sans-serif;
         text-align: center;
         font-size: 1.4rem;
         font-weight: 300;
@@ -237,20 +247,20 @@
         /* color: gray; */
     }
 
-    :global(.leaflet-control-attribution) { 
-    position: fixed; 
-    right: 0px; 
-    bottom: 0px;
-    width: 100%;
-    background: none !important;
-    text-align: right !important;
+    :global(.leaflet-control-attribution) {
+        position: fixed;
+        right: 0px;
+        bottom: 0px;
+        width: 100%;
+        background: none !important;
+        text-align: right !important;
     }
 
     :global(.tt-highlight) {
         color: #000;
         font-weight: 700;
-        font-size: 1.2rem;;
-        font-family: 'Roboto', sans-serif;
+        font-size: 1.2rem;
+        font-family: "Roboto", sans-serif;
     }
 
     :global(.box-thing) {
@@ -260,11 +270,11 @@
         color: black;
         /* align-self: center; */
         font-weight: 700;
-        padding: 5px 10px
-    } 
+        padding: 5px 10px;
+    }
 
     :global(body) {
-        font-family: 'Roboto', sans-serif;
+        font-family: "Roboto", sans-serif;
         padding: 0;
         margin: 0;
         height: 680px;
