@@ -189,7 +189,7 @@
     .highlight {
         color: #064C8D;
         font-weight: 700;
-        font-size: 1.5rem;
+        font-size: 1.8rem;
         padding: 0px 5px;
 
     }
@@ -219,6 +219,7 @@
     }
 
     .title {
+        font-family: 'Roboto', sans-serif;
         text-align: center;
         /* color: #064C8D; */
         font-weight: 700;
@@ -226,13 +227,14 @@
     }
 
     .subtitle {
+        font-family: 'Roboto', sans-serif;
         text-align: center;
-        font-size: 1.2rem;
-        font-weight: 400;
+        font-size: 1.4rem;
+        font-weight: 300;
         display: flex;
         align-items: center; /* Vertical center alignment */
         justify-content: center;
-        color: gray;
+        /* color: gray; */
     }
 
     :global(.leaflet-control-attribution) { 
