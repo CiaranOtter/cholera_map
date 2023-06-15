@@ -4,25 +4,38 @@
     import { browser } from '$app/environment';
     import {  province_locations } from '$data/province_locations.js'
     import { provinces } from '$data/province_lines_geojson.js';
-    import { get } from 'svelte/store';
+    import * as d3 from 'd3';
     
+    
+     
     export let data;
-    console.log(data.data);
+    let max = d3.max(data.data, d => {
+        if (d.name != "Total") return +d.Cases
+    }); 
     let map_data = data.data.map(a => {
         let name = a.name;
         let cases = a.Cases;
         let deaths = a.Deaths;
+
         let lat = province_locations[name].lat;
         let lng = province_locations[name].lng;
         return {name, cases, deaths, lat, lng}
     });
 
+    console.log(map_data)
+
+    let color = d3.scaleLinear()
+        .domain([0, max])
+        .range(["#064C8D", "#FC7A57"]);
+
+
     let Total_el = data.data.filter(a => a.name == "Total")[0];
     map_data = map_data.filter(a => a.name != "Total");
     
-    console.log(map_data);
     // console.log(provinces)
 
+
+    console.log(max);
     let mapElement;
     let map;
 
@@ -33,7 +46,6 @@
     onMount(async () => {
 
         const gen_tt = (data, heading = false) => {
-            console.log(data)
 
             let tt = "<div class='tooltip'>";
             tt += `<div class='tt-title'>${data.name}</div>`;
@@ -51,7 +63,7 @@
             map = leaflet.map(mapElement, {
                 doubleClickZoom: false,
                 scrollWheelZoom: false,
-                attributionControl: false,
+                // attributionControl: false,
                 zoomControl:false, 
                 dragging: false,
                 closePopupOnClick: false, 
@@ -60,80 +72,64 @@
 
             let provinceLines = L.geoJSON(provinces, {
                 style: function(feature) {
-                    return {
-                        color: '#8C8C8C',
-                        weight: 1,
-                        opacity: 0.8,
-                        fillOpacity: 0,
-                        fillColor: '#000'
-                    }
-                },
-                onEachFeature: (feature, layer) => {
-                    console.log(feature);
+
                     let name = feature.properties.ADM1_EN;
                     if (name == "Nothern Cape") {
                         name = "Northern Cape"
                     }
                     let data = map_data.filter(a => {
-                            console.log(a.name, name)
                             return a.name == name;
                     });
 
-                    console.log(data)
-                    let content = gen_tt(data[0], true);
+                    return {
+                        color: (+data[0].cases > 0 ) ? '#ffffff' : "#e0e0e0",
+                        weight: 1,
+                        // opacity: 0.8,
+                        fillOpacity: 1,
+                        fillColor: (+data[0].cases > 0 ) ? "#064C8D" : "#ffffff"
+                    }
+                },
+                onEachFeature: (feature, layer) => {
+
+                    
+                    
+                    let name = feature.properties.ADM1_EN;
+                    if (name == "Nothern Cape") {
+                        name = "Northern Cape"
+                    }
+                    let data = map_data.filter(a => {
+                            return a.name == name;
+                    });
+
+                    let content = gen_tt(data[0]);
+                    // feature.setStyle()
                     layer.bindTooltip(
                         content,
                      {
                         direction: 'center',
-                        opacity: 0.8,
                         permanent: true,
                         color: '#000',
                         weight: 1,
-                        opacity: 1,
-                        fillColor: '#000',
                         className: 'box-thing',
                     })
 
-                    layer.on('mouseover', (e) => {
-                        console.log(feature)
+                    // layer.on('mouseover', (e) => {
 
-                        console.log("layer is: ", layer._tooltip);
+                        
+                    //     console.log(feature)
 
-                        content = gen_tt(data[0]);
+                    //     console.log("layer is: ", layer._tooltip);
 
-                        layer.setStyle({
-                            color: '#064C8D',
-                        });
+                    //     content = gen_tt(data[0]);
 
-                        layer.bindTooltip(
-                        gen_tt(data[0]),
-                     {
-                        direction: 'center',
-                        // opacity: 0.8,
-                        permanent: true,
-                        color: '#000',
-                        weight: 1,
-                        opacity: 1,
-                        fillColor: '#000',
-                        className: 'box-thing',
-                    })
-                    });
-                    layer.on('mouseout', (e) => {
-                        layer.bindTooltip(
-                        gen_tt(data[0], true),
-                     {
-                        direction: 'center',
-                        opacity: 0.8,
-                        permanent: true,
-                        color: '#000',
-                        weight: 1,
-                        fillColor: '#000',
-                        className: 'box-thing',
-                    })
-                        layer.setStyle({
-                            color: '#8C8C8C'
-                        })
-                    })
+                        
+
+                    // });
+                    // layer.on('mouseout', (e) => {
+                    //     layer.setStyle({
+                    //         fillColor: '#8C8C8C'
+                    //     })
+                    // })
                 }
             })
 
@@ -167,7 +163,7 @@
     }
 
     :global(.leaflet-container) {
-        background: #FFFFFF
+        /* background: #F5F5F5 */
     }
 
     .highlight {
@@ -185,8 +181,7 @@
 
     :global(.tt-title){
         font-weight: 700;
-        font-size: 1rem;
-        color: #064C8D;
+        font-size: 0.8rem;
         margin: auto;
         width: fit-content
     }
@@ -223,12 +218,6 @@
     background: none !important;
     text-align: right !important;
     }
-    :global(.tt-title) { 
-        font-weight: 700; 
-        color: "#000";
-        /* opacity: 0.2; */
-        /* opacity: 0; */
-    }
 
     :global(.tt-highlight) {
         color: #000;
@@ -236,7 +225,7 @@
     }
 
     :global(.box-thing) {
-        background-color: #f5f5f5B0;
+        background-color: #ffffff;
         box-shadow: none;
         color: black;
         /* align-self: center; */
