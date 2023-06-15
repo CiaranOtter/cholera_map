@@ -91,12 +91,26 @@
                 },
                 onEachFeature: (feature, layer) => {
 
+                    console.log(feature)
+
                     
                     
                     let name = feature.properties.ADM1_EN;
                     if (name == "Nothern Cape") {
                         name = "Northern Cape"
                     }
+                    let offset = [0,0];
+                    switch(name) {
+                        case "Western Cape":
+                            offset = [35, -55]
+                            break;
+                        case "North West":
+                            offset = [-10, 15] 
+                            break;
+                        case "Mpumalanga":
+                            offset = [20, 20]
+                            break;
+                    } 
                     let data = map_data.filter(a => {
                             return a.name == name;
                     });
@@ -111,6 +125,7 @@
                         color: '#000',
                         weight: 1,
                         className: 'box-thing',
+                        offset: offset
                     })
 
                     // layer.on('mouseover', (e) => {
@@ -187,7 +202,9 @@
     }
 
     :global(.tt-text) {
-        color: gray;
+        /* color: grey; */
+        font-weight: 100;
+        font-size: 0.9rem;
         margin: auto;
         width:  fit-content;
         
@@ -222,11 +239,13 @@
     :global(.tt-highlight) {
         color: #000;
         padding: 0px 5px;
+        font-weight: 700;
     }
 
     :global(.box-thing) {
-        background-color: #ffffff;
+        background-color: #ffffffc0;
         box-shadow: none;
+        border: none;
         color: black;
         /* align-self: center; */
         font-weight: 700;
