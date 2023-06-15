@@ -64,11 +64,13 @@
                 doubleClickZoom: false,
                 scrollWheelZoom: false,
                 // attributionControl: false,
+                zoomSnap: 0.1,
                 zoomControl:false, 
                 dragging: false,
                 closePopupOnClick: false, 
                 boxZoom: false,
-            }).setView([-29.2921561,24.4095021],6);
+                trackResize: true
+            }).setView([-28.2921561,24.9005021],5.7);
 
             let provinceLines = L.geoJSON(provinces, {
                 style: function(feature) {
@@ -102,16 +104,16 @@
                     let offset = [0,0];
                     switch(name) {
                         case "Western Cape":
-                            offset = [40, -55]
+                            offset = [40, -45]
                             break;
                         case "North West":
-                            offset = [-15, -15] 
+                            offset = [-20, -15] 
                             break;
                         case "Mpumalanga":
-                            offset = [30, 20]
+                            offset = [45, 20]
                             break;
                         case "KwaZulu-Natal":
-                            offset = [30, 20] 
+                            offset = [25, 20] 
                             break;
                     } 
                     let data = map_data.filter(a => {
@@ -176,8 +178,8 @@
 <style>
     @import 'leaflet/dist/leaflet.css';
     #map {
-        height: 100vh;
-       width: 100%;
+       height: 100%;
+       width: 100%
     }
 
     :global(.leaflet-container) {
@@ -199,17 +201,20 @@
 
     :global(.tt-title){
         font-weight: 700;
-        font-size: 1.2rem;
+        font-size: 1.25rem;
         margin: auto;
-        width: fit-content
+        width: fit-content;
+        font-family: 'Roboto', sans-serif;
     }
 
     :global(.tt-text) {
         /* color: grey; */
-        font-weight: 100;
-        font-size: 0.9rem;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 400;
+        font-size: 1rem;
         margin: auto;
         width:  fit-content;
+        line-height: 20px;
         
     }
 
@@ -241,12 +246,13 @@
 
     :global(.tt-highlight) {
         color: #000;
-        padding: 0px 5px;
         font-weight: 700;
+        font-size: 1.2rem;;
+        font-family: 'Roboto', sans-serif;
     }
 
     :global(.box-thing) {
-        background-color: #ffffffc0;
+        background-color: #fffffff0;
         box-shadow: none;
         border: none;
         color: black;
@@ -256,7 +262,10 @@
     } 
 
     :global(body) {
+        font-family: 'Roboto', sans-serif;
         padding: 0;
         margin: 0;
+        height: 680px;
+        width: 640px;
     }
 </style>
