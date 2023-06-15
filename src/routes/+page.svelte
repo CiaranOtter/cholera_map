@@ -130,7 +130,7 @@
                         className: 'box-thing',
                         offset: offset
                     })
-
+                    
                     // layer.on('mouseover', (e) => {
 
                         
