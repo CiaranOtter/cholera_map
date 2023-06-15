@@ -121,7 +121,7 @@
                     let content = gen_tt(data[0]);
                     // feature.setStyle()
                     layer.bindTooltip(
-                        content,
+                        (data[0].cases > 0) ? content : gen_tt(data[0], true),
                      {
                         direction: 'center',
                         permanent: true,
