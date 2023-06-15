@@ -102,13 +102,16 @@
                     let offset = [0,0];
                     switch(name) {
                         case "Western Cape":
-                            offset = [35, -55]
+                            offset = [40, -55]
                             break;
                         case "North West":
-                            offset = [-10, 15] 
+                            offset = [-15, -15] 
                             break;
                         case "Mpumalanga":
-                            offset = [20, 20]
+                            offset = [30, 20]
+                            break;
+                        case "KwaZulu-Natal":
+                            offset = [30, 20] 
                             break;
                     } 
                     let data = map_data.filter(a => {
@@ -196,7 +199,7 @@
 
     :global(.tt-title){
         font-weight: 700;
-        font-size: 0.8rem;
+        font-size: 1.2rem;
         margin: auto;
         width: fit-content
     }
