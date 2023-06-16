@@ -104,19 +104,19 @@
                     let offset = [0,0];
                     switch(name) {
                         case "Western Cape":
-                            offset = [20, 0]
+                            offset = [80, 30]
                             break;
                         case "North West":
-                            offset = [-50, -70] 
+                            offset = [-55, -50] 
                             break;
                         case "Mpumalanga":
-                            offset = [100, 0]
+                            offset = [100, -20]
                             break;
                         case "KwaZulu-Natal":
                             offset = [50, 20] 
                             break;
                         case "Limpopo":
-                            offset = [80, -50];
+                            offset = [20, -70];
                             break
                         case "Eastern Cape":
                             offset = [50, 40];
