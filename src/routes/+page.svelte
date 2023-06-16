@@ -104,7 +104,7 @@
                     let offset = [0,0];
                     switch(name) {
                         case "Western Cape":
-                            offset = [80, 30]
+                            offset = [0, -20]
                             break;
                         case "North West":
                             offset = [-55, -50] 
