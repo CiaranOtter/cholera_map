@@ -131,7 +131,9 @@
 
                     let content = gen_tt(data[0]);
                     // feature.setStyle()
-                    layer.bindTooltip(
+
+                    if (data[0].cases > 0) {
+                        layer.bindTooltip(
                         content,
                      {
                         direction: 'center',
@@ -141,6 +143,8 @@
                         className: 'box-thing',
                         offset: offset
                     })
+                    }
+                    
                     
                     // layer.on('mouseover', (e) => {
 
