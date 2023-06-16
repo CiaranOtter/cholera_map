@@ -132,7 +132,7 @@
                     let content = gen_tt(data[0]);
                     // feature.setStyle()
 
-                    if (data[0].cases > 0) {
+                    if (+data[0].cases > 0) {
                         layer.bindTooltip(
                         content,
                      {
