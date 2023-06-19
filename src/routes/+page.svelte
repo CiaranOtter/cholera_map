@@ -5,7 +5,7 @@
     import {  province_locations } from '$data/province_locations.js'
     import { provinces } from '$data/province_lines_geojson.js';
     import * as d3 from 'd3';
-    
+    import Logo from '$res/Bhekisisa Horizontal - High res 6.png'
     
      
     export let data;
@@ -184,11 +184,13 @@
 </script>
 
 <div id="map" class="chart" bind:this={mapElement}>
+    
     <div class="title">Cholera in South Africa</div>
     <div class="subtitle">
         Total cases: <span class="highlight">{Total_el.Cases}</span> Deaths:
         <span class="highlight">{Total_el.Deaths}</span>
     </div>
+    <a href="https://bhekisisa.org/" target="_blank"><img src={Logo} class="logo" /></a>
 </div>
 
 <style>
@@ -207,6 +209,13 @@
         font-weight: 700;
         font-size: 1.8rem;
         padding: 0px 5px;
+    }
+
+    .logo {
+        position: absolute;
+        bottom: 0px;
+        right: 0px;
+        margin: 10px;   
     }
 
     .title-container {

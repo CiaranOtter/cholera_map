@@ -6,6 +6,7 @@ const config = {
 		adapter: adapter(),
 		alias: {
 			$data: './src/data',
+			$res: './src/res',
 		}
 	},
 	
